@@ -1,17 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import wave from "../assets/wave.png"; // Optional: If you want to use the imported image later
+import axios from 'axios';
 
 const Login = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const Signredirect = () => {
         navigate('/SignUp');
     };
 
-    const HandleLogin = (e) => {
+    const HandleLogin = async (e) => {
         e.preventDefault();
-        navigate("/Home");
+        setError('');
+
+        try {
+            const response = await axios.post('http://localhost:6200/api/user/Login', {
+                Email:email,
+                Password:password
+            });
+            if (response.status === 200) {
+                localStorage.setItem('authToken', response.data.Token);
+                navigate("/Home");
+            }
+        } catch (error) {
+            setError('Login failed. Please check your credentials.');
+        }
     };
 
     return (
@@ -62,7 +78,10 @@ const Login = () => {
                             </label>
                             <input
                                 id="email"
+                                name="email"
                                 type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 autoComplete="email"
                                 required
                                 className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
@@ -74,12 +93,16 @@ const Login = () => {
                             </label>
                             <input
                                 id="password"
+                                name="password"
                                 type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 autoComplete="current-password"
                                 required
                                 className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                             />
                         </div>
+                        {error && <p className="text-red-500 text-sm">{error}</p>}
                         <div className="flex items-center justify-between">
                             <div className="text-sm">
                                 <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
@@ -116,7 +139,6 @@ const Login = () => {
                                         Continue with Google
                                     </button>
                                 </div>
-
                             </p>
                         </div>
                     </form>
