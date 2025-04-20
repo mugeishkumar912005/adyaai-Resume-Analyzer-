@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { CloudUpload } from "lucide-react"; 
+import { CloudUpload } from "lucide-react";
 
 const UploadSection = () => {
   const [resumeFile, setResumeFile] = useState(null);
   const [jdFile, setJdFile] = useState(null);
-
+  const [loading, setLoading] = useState(false);
+  const token =localStorage.getItem('authToken')
   const handleDrop = (e, setter) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
@@ -20,6 +21,45 @@ const UploadSection = () => {
     }
   };
 
+  const handleUpload = async () => {
+    if (!resumeFile || !jdFile) {
+      alert("Please upload both Resume and JD!");
+      return;
+    }
+  
+    const formData = new FormData();
+    formData.append("resumeFile", resumeFile);
+    formData.append("jdFile", jdFile);
+    formData.append("email", "testuser@example.com"); 
+  
+    setLoading(true);
+  
+    try {
+      const response = await fetch("http://localhost:6200/api/uploads/upload", {
+        method: "POST",
+        headers:{
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+  
+      const result = await response.json();
+      setLoading(false);
+  
+      if (response.ok) {
+        alert("Files uploaded successfully!");
+        console.log("Server response:", result);
+      } else {
+        alert("Upload failed: " + result.message);
+      }
+    } catch (error) {
+      setLoading(false);
+      console.error("Upload error:", error);
+      alert("Something went wrong!");
+    }
+  };
+  
+
   const dropBoxStyle = `
     relative flex flex-col items-center justify-center 
     w-full h-48 border-2 border-dashed rounded-xl 
@@ -34,6 +74,7 @@ const UploadSection = () => {
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+        {/* Resume Upload */}
         <div
           className={dropBoxStyle}
           onDrop={(e) => handleDrop(e, setResumeFile)}
@@ -78,6 +119,17 @@ const UploadSection = () => {
             onChange={(e) => handleFileChange(e, setJdFile)}
           />
         </div>
+      </div>
+
+      {/* Upload Button */}
+      <div className="flex justify-center mt-10">
+        <button
+          onClick={handleUpload}
+          className="bg-blue-600 text-white px-6 py-2 rounded-lg shadow hover:bg-blue-700 transition"
+          disabled={loading}
+        >
+          {loading ? "Uploading..." : "Upload Files"}
+        </button>
       </div>
     </div>
   );

@@ -31,7 +31,7 @@ const Profile = () => {
           }
 
           setUser(data.Data);
-          setEditedUser(data.Data); // set initial editable values
+          setEditedUser(data.Data); 
           setLoading(false);
         } catch (error) {
           console.error("Error fetching user data:", error);
@@ -46,6 +46,12 @@ const Profile = () => {
 
   const handleSave = async () => {
     const token = localStorage.getItem("authToken");
+  
+    if (!token) {
+      alert("You are not logged in");
+      return;
+    }
+  
     try {
       const response = await fetch("http://localhost:6200/api/user/Update", {
         method: "PATCH",
@@ -53,21 +59,28 @@ const Profile = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(editedUser),
+        body: JSON.stringify({
+          username: editedUser.username,
+          Email: editedUser.Email,
+        }),
       });
-
+  
       const result = await response.json();
-
+  
       if (!response.ok) {
-        throw new Error(result.Msg || "Failed to update user data");
+        throw new Error(result.Msg || "Failed to update profile");
       }
-
+  
       setUser(editedUser);
       setEditable(false);
-    } catch (err) {
-      alert(err.message);
+      alert("Profile updated successfully");
+    } catch (error) {
+      console.error("Update error:", error);
+      alert(error.message || "Something went wrong while updating profile");
     }
   };
+  
+  
 
   if (loading) {
     return <div className="text-center py-10 text-gray-600">Loading...</div>;
