@@ -3,6 +3,7 @@ const app = express();
 const cors=require('cors')
 const UserRoutes  = require('../Backend/Routes/UserRoutes.js');
 const Resumeroute=require("../Backend/Routes/Resumeroute.js");
+const HistoryRoutes=require("../Backend/Routes/HistoryRoutes.js")
 const {DbConnection}=require('../Backend/Dbconfig.js')
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -16,6 +17,7 @@ app.use(cors({
 app.set("view engine","ejs");
 app.use("/api/user", UserRoutes);
 app.use("/api/uploads",Resumeroute);
+app.use("/api/History",HistoryRoutes);
 DbConnection
 app.listen(6200, () => {
     console.log("Server is running on port 6200");

@@ -1,0 +1,180 @@
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import {
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend
+} from 'recharts';
+import { motion } from 'framer-motion';
+import Resume from "../assets/Resume.jpg";
+
+const COLORS = ['#4f46e5', '#22c55e', '#facc15'];
+
+const AnalysisResult = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { result } = location.state || {};
+
+  if (!result) {
+    return <div className="text-center text-lg text-gray-500 mt-10">Loading...</div>;
+  }
+
+  const {
+    match_scores,
+    resume_skills,
+    jd_skills,
+    suggestions,
+    resume_education_keywords,
+    jd_education_keywords,
+  } = result;
+
+  const barData = [
+    { name: 'Skill', score: match_scores.skills },
+    { name: 'Education', score: match_scores.education },
+    { name: 'Overall', score: match_scores.overall },
+  ];
+
+  const pieData = [
+    { name: 'Resume Skills Match', value: match_scores.skills },
+    { name: 'JD Skills Match', value: 100 - match_scores.skills },
+  ];
+
+  return (
+    <div className="px-6 py-10 min-h-screen bg-gradient-to-br from-[#e0f2fe] via-white to-[#fefce8]">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-4xl font-bold text-indigo-700 drop-shadow-md">Smart Resume</h1>
+          <button
+            onClick={() => navigate(-1)}
+            className="text-indigo-600 hover:text-indigo-800 font-medium text-lg"
+          >
+            ← Back
+          </button>
+        </div>
+
+        <div className="bg-white/70 backdrop-blur-md rounded-3xl shadow-2xl p-8">
+          <h2 className="text-3xl font-semibold text-center text-indigo-800 mb-10">Analysis Result</h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {[{ label: 'Skill Match Score', value: match_scores.skills },
+              { label: 'Education Match Score', value: match_scores.education },
+              { label: 'Overall Match Score', value: match_scores.overall },
+            ].map((score, index) => (
+              <div key={index} className="bg-white shadow-lg rounded-2xl p-6 text-center transition transform hover:scale-105">
+                <h3 className="text-xl font-semibold text-indigo-700">{score.label}</h3>
+                <p className="text-4xl font-bold text-indigo-900 mt-2">{score.value}%</p>
+              </div>
+            ))}
+          </div>
+
+          <h3 className="text-2xl font-semibold text-center text-indigo-700 mb-6">Match Score Visualization</h3>
+          <div className='flex flex-col lg:flex-row gap-8'>
+            <motion.div
+              className="flex-1"
+              initial={{ x: 300, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              viewport={{ once: false, amount: 0.3 }}
+            >
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={barData}>
+                  <XAxis dataKey="name" />
+                  <YAxis domain={[0, 100]} />
+                  <Tooltip />
+                  <Bar dataKey="score" fill="#4f46e5" radius={[10, 10, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </motion.div>
+
+            <motion.div
+              className="flex-1"
+              initial={{ x: 300, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              viewport={{ once: false, amount: 0.3 }}
+            >
+              <h3 className="text-2xl font-semibold text-center text-indigo-700 mb-6">Resume vs JD Skill Match</h3>
+              <ResponsiveContainer width="100%" height={250}>
+                <PieChart>
+                  <Pie
+                    data={pieData}
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={90}
+                    label
+                    dataKey="value"
+                    labelLine={false}
+                  >
+                    {pieData.map((_, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
+            </motion.div>
+          </div>
+
+          <h3 className="text-2xl font-semibold text-indigo-700 mb-4 mt-10">Education Details</h3>
+          <div className="mb-12 flex flex-col lg:flex-row justify-evenly gap-6">
+            <motion.img
+              src={Resume}
+              className='w-100'
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+            />
+            <div className="flex justify-centre pt-20 gap-10 flex-col bg-white rounded-xl shadow-inner p-6 space-y-3 text-gray-800 w-full lg:w-1/2">
+              <h3 className='text-2xl'><strong>Your Degree:</strong> {resume_education_keywords?.degree || 'N/A'}</h3>
+              <h3 className='text-2xl'><strong>Required Degree:</strong> {jd_education_keywords?.degree || 'N/A'}</h3>
+              <h3 className='text-2xl'><strong>Your CGPA:</strong> {resume_education_keywords?.cgpa || 'N/A'}</h3>
+              <h3 className='text-2xl'><strong>Required CGPA:</strong> {jd_education_keywords?.cgpa || 'N/A'}</h3>
+            </div>
+          </div>
+
+          <div className="mb-12">
+            <h3 className="text-2xl font-semibold text-indigo-700 mb-4">Skills Comparison</h3>
+            <div className="bg-white rounded-xl shadow-inner p-6 text-gray-800">
+              <div className='mb-4'>
+                <strong>Resume Skills:</strong>
+                <div className="flex flex-wrap mt-2 gap-2">
+                  {resume_skills.map((skill, idx) => (
+                    <span
+                      key={idx}
+                      className="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-medium shadow-sm"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <strong>Job Description Skills:</strong>
+                <div className="flex flex-wrap mt-2 gap-2">
+                  {jd_skills.map((skill, idx) => (
+                    <span
+                      key={idx}
+                      className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium shadow-sm"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-2xl font-semibold text-indigo-700 mb-4">Suggestions</h3>
+            <ul className="list-disc pl-6 space-y-2 text-gray-700 text-base">
+              {suggestions.map((suggestion, index) => (
+                <li key={index} className="leading-relaxed">{suggestion}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AnalysisResult;

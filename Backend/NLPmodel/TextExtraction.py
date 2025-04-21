@@ -1,38 +1,19 @@
-import re
-import nltk
-from nltk.corpus import stopwords
-from pypdf import PdfReader as PR
+from tools import analyze_resume_vs_jd
 
-nltk.download('stopwords')
-nltk.download('punkt')
+resume_path = "C:\\Users\\Mugeish\\OneDrive\\Desktop\\adyaai-Resume-Analyzer-\\Backend\\files\\kmugeis2005@gmail.com\\1745212006066-resume.pdf"
+jd_path = "C:\\Users\\Mugeish\\OneDrive\\Desktop\\adyaai-Resume-Analyzer-\\Backend\\files\\kmugeis2005@gmail.com\\1745216843317-jd.pdf"
 
-reader_Resume = PR("C:\\Users\\Mugeish\\OneDrive\\Desktop\\adyaai-Resume-Analyzer-\\Backend\\files\\kmugeis2005@gmail.com\\1745161542417-resume.pdf")
-page_Resume = reader_Resume.pages[0]
-text_Resume = page_Resume.extract_text()
 
-reader_JD=PR("C:\\Users\\Mugeish\\OneDrive\\Desktop\\adyaai-Resume-Analyzer-\\Backend\\files\\kmugeis2005@gmail.com\\1745161542423-jd.pdf")
-page_JD=reader_JD.pages[0]
-text_JD=page_JD.extract_text()
+result = analyze_resume_vs_jd(resume_path, jd_path)
 
-def clean_text(text):
-    text = re.sub(r'[^a-zA-Z\s]', '', text) 
-    text = text.lower() 
-    text = re.sub(r'\s+', ' ', text).strip() 
-    words = nltk.word_tokenize(text)
-    stop_words = set(stopwords.words('english'))
-    
-    cleaned_words = []
-    for word in words:
-        if word not in stop_words:
-            cleaned_words.append(word)
-    cleaned_text = ' '.join(cleaned_words)
-    
-    return cleaned_text
-
-cleaned_text_Resume = clean_text(text_Resume)
-
-cleaned_text_JD=clean_text(text_JD)
-
-print("Resume:",cleaned_text_Resume)
-
-print("JD:",cleaned_text_JD)
+print("Resume Contact Details:", result['contact_details'])
+print("Resume Skills:", result['resume_skills'])
+print("Resume Experience:", result['experience'])
+print("Resume Education:", result['education'])
+print("JD Required Skills:", result['jd_skills'])
+print("JD Experience Requirements:", result['jd_experience'])
+print("JD Education Requirements:", result['jd_education'])
+print("Skill Match Score:", result['match_scores']['skills'])
+print("Experience Match Score:", result['match_scores']['experience'])
+print("Education Match Score:", result['match_scores']['education'])
+print("Overall Match Score:", result['match_scores']['overall'])

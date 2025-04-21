@@ -21,7 +21,7 @@ const sendWelcomeEmail = (email,name) => {
   const mailOptions = {
     from: "mugeishkumar.2005@gmail.com",
     to: email,
-    subject: `Welcome to Smart Resume Mr/Ms. ${username}`,
+    subject: `Welcome to Smart Resume Mr/Ms. ${name}`,
     text: 'Build 🏗️ and Enhance your career 📈 by analyzing your Resume with Smart Resume😊✅',
   };
 
