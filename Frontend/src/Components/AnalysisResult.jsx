@@ -63,7 +63,6 @@ const AnalysisResult = () => {
           </button>
         </div>
 
-        {/* Download Links */}
         <div className="flex justify-start items-center mb-6 gap-4">
           {resumeFile && (
             <a
