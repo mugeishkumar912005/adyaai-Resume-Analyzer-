@@ -124,7 +124,7 @@ const AnalysisResult = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
             />
-            <div className="bg-indigo-50/70 hover:bg-indigo-100/80 transition duration-300 rounded-xl shadow-md p-6 w-full lg:w-1/2 space-y-6 border border-indigo-200">
+            <div className="bg-indigo-50/70 hover:bg-indigo-100/80 transition duration-300 rounded-xl shadow-md p-10 mt-40 w-full lg:w-1/2 space-y-6 border border-indigo-200">
               <div className="flex flex-col gap-1">
                 <span className="text-gray-600 text-sm font-semibold uppercase tracking-wider">Your Degree</span>
                 <span className="text-lg font-bold text-indigo-900">{resume_education_keywords?.degree || 'N/A'}</span>

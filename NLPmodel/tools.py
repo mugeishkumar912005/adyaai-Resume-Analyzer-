@@ -24,22 +24,55 @@ SKILLS = {
         "git", "docker", "kubernetes", "aws", "azure", "gcp", "jira", "figma", "linux", "jenkins", "github", "bitbucket", "notion", "postman", "firebase", "heroku", "airflow"
     ]
 }
-
 DEGREE_MAP = {
-    'computer science': ['cs', 'it', 'information technology', 'computer science', 'cse', 'computing'],
-    'mechanical': ['mechanical'],
-    'ece': ['ece', 'electronics and communication', 'electronics'],
-    'aiml': ['aiml', 'artificial intelligence', 'ai ml'],
-    'aids': ['aids', 'artificial intelligence and data science', 'ai ds'],
-    'btech': ['btech', 'bachelor of technology'],
-    'be': ['be', 'bachelor of engineering'],
-    'mtech': ['mtech', 'master of technology'],
-    'me': ['me', 'master of engineering'],
-    'msc': ['msc', 'master of science'],
-    'bsc': ['bsc', 'bachelor of science'],
-    'phd': ['phd', 'doctorate'],
-    'bachelors': ['bachelors'],
-    'masters': ['masters']
+    'computer science': [
+        'cs', 'it', 'information technology', 'computer science', 'cse', 'computing', 'software engineering', 'systems engineering', 'informatics'
+    ],
+    'mechanical engineering': [
+        'mechanical', 'mechanical engineering', 'thermodynamics', 'heat transfer', 'fluid mechanics', 'materials science'
+    ],
+    'electronics and communication engineering': [
+        'ece', 'electronics and communication', 'electronics', 'communication systems', 'digital electronics', 'analog electronics', 'embedded systems', 'vlsi'
+    ],
+    'aeronautical engineering': [
+        'aeronotics', 'aircraft', 'aerodynamics', 'aerospace', 'flight mechanics', 'aviation', 'propulsion', 'space systems'
+    ],
+    'artificial intelligence and machine learning': [
+        'aiml', 'artificial intelligence', 'ai ml', 'machine learning', 'deep learning', 'neural networks', 'natural language processing', 'computer vision'
+    ],
+    'data science and artificial intelligence': [
+        'aids', 'artificial intelligence and data science', 'ai ds', 'data science', 'big data', 'predictive analytics', 'data mining'
+    ],
+    'bachelor of technology': [
+        'btech', 'bachelor of technology', 'b.tech', 'b tech'
+    ],
+    'bachelor of engineering': [
+        'be', 'bachelor of engineering', 'b.eng', 'b.e'
+    ],
+    'master of technology': [
+        'mtech', 'master of technology', 'm.tech', 'm tech'
+    ],
+    'master of engineering': [
+        'me', 'master of engineering', 'm.eng', 'm.e'
+    ],
+    'master of science': [
+        'msc', 'master of science', 'm.sc', 'm science'
+    ],
+    'bachelor of science': [
+        'bsc', 'bachelor of science', 'b.sc', 'b science'
+    ],
+    'phd': [
+        'phd', 'doctorate', 'doctoral', 'phd in engineering', 'phd in computer science'
+    ],
+    'bachelors': [
+        'bachelors', 'undergraduate', 'bachelor', 'undergrad'
+    ],
+    'masters': [
+        'masters', 'postgraduate', 'master', 'postgrad'
+    ],
+    'other': [
+        'diploma', 'certification', 'associate degree', 'higher secondary', 'vocational', 'associate'
+    ]
 }
 
 def extract_text_from_file(file):
