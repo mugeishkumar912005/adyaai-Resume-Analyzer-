@@ -20,7 +20,7 @@ const transporter=nodemailer.createTransport({
       from: "mugeishkumar.2005@gmail.com",
       to: email,
       subject: "Hey Don't worry Click the below link to Reset your Password",
-      text: `Hi ${email},\n\nClick below to reset your password:\nhttp://localhost:5173/Reset-Password\n\nKeep this link confidential.`,
+      text: `Hi ${email},\n\nClick below to reset your password:\nhttps://adyaai-resume-analyzer-frontend-app.onrender.com/Reset-Password\n\nKeep this link confidential.`,
     };
   
     try {

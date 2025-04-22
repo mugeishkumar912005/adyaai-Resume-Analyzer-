@@ -218,11 +218,8 @@ def analyze():
         return jsonify({"error": "Empty file upload"}), 400
 
     try:
-        # Extract text from files
         resume_text = extract_text_from_file(resume_file)
         jd_text = extract_text_from_file(jd_file)
-
-        # Analyze the content
         result = analyze_resume_vs_jd(resume_text, jd_text)
         suggestions = generate_suggestions(
             result['resume_skills'],
