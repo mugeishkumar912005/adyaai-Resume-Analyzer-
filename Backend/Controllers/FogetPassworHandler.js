@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 const User = require("../Models/UserModel.js");
-const bcrypt=require('bcrypt')
+const bcrypt = require('bcryptjs');
 const transporter=nodemailer.createTransport({
     service:'gmail',
     auth:{
