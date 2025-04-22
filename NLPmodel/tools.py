@@ -255,20 +255,17 @@ def analyze():
         jd_text = extract_text_from_file(jd_file)
         result = analyze_resume_vs_jd(resume_text, jd_text)
         suggestions = generate_suggestions(
-            result['resume_skills'],
-            result['jd_skills'],
-            result['resume_education_keywords'],
-            result['jd_education_keywords']
+            result['resume_skills'], result['jd_skills'],
+            result['resume_education_keywords'], result['jd_education_keywords']
         )
-
-        result["suggestions"] = suggestions
-        result["visualization"] = generate_match_score_chart(result["match_scores"])
-
-        return jsonify(result)
-
+        chart_base64 = generate_match_score_chart(result['match_scores'])
+        return jsonify({
+            "result": result,
+            "suggestions": suggestions,
+            "chart": chart_base64
+        })
     except Exception as e:
-        return jsonify({"error": f"An error occurred: {str(e)}"}), 500
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    print("🚀 Resume Analyzer server is running at http://127.0.0.1:5000")
     app.run(debug=True)

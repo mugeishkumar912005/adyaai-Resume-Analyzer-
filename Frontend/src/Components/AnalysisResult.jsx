@@ -38,7 +38,7 @@ const AnalysisResult = () => {
   ];
 
   return (
-    <div className="px-4 sm:px-6 py-10 min-h-screen bg-gradient-to-br from-[#e0f2fe] via-white to-[#fefce8]">
+    <div className="px-4 sm:px-6 py-10 min-h-screen bg-gradient-to-br from-[#e0f2fe] via-white to-[#fefce8] overflow-x-hidden">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
           <h1 className="text-4xl font-bold text-indigo-700 drop-shadow-md">Smart Resume</h1>
@@ -119,12 +119,12 @@ const AnalysisResult = () => {
             <motion.img
               src={Resume}
               alt="Resume"
-              className="rounded-2xl shadow-md w-full h-20 lg:w-1/2 object-contain"
+              className="rounded-2xl shadow-md w-full h-full lg:w-1/2 object-contain"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
             />
-            <div className="bg-indigo-50/70 hover:bg-indigo-100/80 transition duration-300 rounded-xl shadow-md p-10 mt-40 w-full lg:w-1/2 space-y-6 border border-indigo-200">
+            <div className="bg-indigo-50/70 hover:bg-indigo-100/80 transition duration-300 rounded-xl shadow-md p-10 w-full lg:w-1/2 h-full space-y-6 border border-indigo-200">
               <div className="flex flex-col gap-1">
                 <span className="text-gray-600 text-sm font-semibold uppercase tracking-wider">Your Degree</span>
                 <span className="text-lg font-bold text-indigo-900">{resume_education_keywords?.degree || 'N/A'}</span>
