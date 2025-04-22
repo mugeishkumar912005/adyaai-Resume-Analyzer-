@@ -21,7 +21,7 @@ const ForgetPassword = () => {
     setLoading(true);
   
     try {
-      const response = await axios.patch('https://adyaai-resume-analyzer-back.onrender.com/api/user/Reset-Password', {
+      const response = await axios.patch('https://adyaai-resume-analyzer-backend.onrender.com/api/user/Reset-Password', {
         Email: email,
         NewPass: newPassword,
       },{
