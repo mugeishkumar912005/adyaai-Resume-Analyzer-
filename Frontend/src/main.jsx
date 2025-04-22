@@ -7,6 +7,6 @@ import Home from './Components/Home.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Home />  
+    <App/>  
   </StrictMode>
 );
