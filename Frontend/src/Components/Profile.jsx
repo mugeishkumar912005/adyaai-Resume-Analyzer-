@@ -27,7 +27,7 @@ const Profile = () => {
 
     const fetchUserData = async () => {
       try {
-        const response = await fetch("https://adyaai-resume-analyzer-backend.onrender.com/api/user/GetData", {
+        const response = await fetch("https://adyaai-resume-analyzer-back.onrender.com/api/user/GetData", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -48,7 +48,7 @@ const Profile = () => {
 
     const fetchHistory = async () => {
       try {
-        const response = await axios.get("https://adyaai-resume-analyzer-backend.onrender.com/api/History/GetData", {
+        const response = await axios.get("https://adyaai-resume-analyzer-back.onrender.com/api/History/GetData", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -71,7 +71,7 @@ const Profile = () => {
     }
 
     try {
-      const response = await fetch("https://adyaai-resume-analyzer-backend.onrender.com/api/user/Update", {
+      const response = await fetch("https://adyaai-resume-analyzer-back.onrender.com/api/user/Update", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
