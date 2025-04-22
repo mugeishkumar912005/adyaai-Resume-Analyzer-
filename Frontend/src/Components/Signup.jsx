@@ -106,6 +106,7 @@ const SignUp = () => {
             <button
               type="submit"
               className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onClick={SignupHandle}
             >
               Sign up
             </button>
@@ -117,8 +118,6 @@ const SignUp = () => {
             </a>
           </p>
         </div>
-
-        {/* SVG Wave */}
         <svg
           id="wave"
           style={{ transform: "rotate(0deg)", transition: "0.3s" }}
