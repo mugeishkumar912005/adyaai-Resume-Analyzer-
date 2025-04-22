@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 app.use(cors({
-  origin:'https://adyaai-resume-analyzer-front.vercel.app/',
+  origin:'https://adyaai-resume-analyzer-frontend-app.onrender.com',
   methods: ['GET', 'POST', 'DELETE', 'PATCH'],
   credentials: true,
   allowedHeaders: 'Content-Type,Authorization'
