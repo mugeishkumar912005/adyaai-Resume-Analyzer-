@@ -111,7 +111,7 @@ const Profile = () => {
 
       <button
         className="mb-6 text-blue-700 hover:text-blue-900 flex items-center gap-2"
-        onClick={() => navigate("/Home")}
+        onClick={() => navigate("/")}
       >
         <ArrowLeft size={20} /> Back to Home
       </button>

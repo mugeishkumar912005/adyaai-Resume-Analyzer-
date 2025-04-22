@@ -44,7 +44,7 @@ const Login = () => {
             });
             if (response.status === 200) {
                 localStorage.setItem('authToken', response.data.Token);
-                navigate("/Home");
+                navigate("/");
             }
         } catch (error) {
             setError('Login failed. Please check your credentials.');
