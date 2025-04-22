@@ -38,9 +38,7 @@ app.use(express.json());
 
 // Enable CORS for specific domains
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? 'https://adyaai-resume-analyzer-frontend-app.onrender.com' 
-    : 'http://localhost:5174',
+  origin:'https://adyaai-resume-analyzer-frontend-app.onrender.com',
   methods: ['GET', 'POST', 'DELETE', 'PATCH'],
   credentials: true,
   allowedHeaders: 'Content-Type,Authorization'
