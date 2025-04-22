@@ -95,7 +95,7 @@ const UploadSection = () => {
       const response = await fetch("https://adyaai-resume-analyzer-backend.onrender.com/api/uploads/upload", {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,//dasda
         },
         body: formData,
       });
