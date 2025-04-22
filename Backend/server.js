@@ -2,7 +2,7 @@ const express = require("express");
 const serverless = require("serverless-http");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const UserRoutes = require('./Routes/UserRoutes.js');
+const UserRoutes = require('./Routes/UserRoutes.js'); // Paths must match your file structure
 const Resumeroute = require("./Routes/Resumeroute.js");
 const HistoryRoutes = require("./Routes/HistoryRoutes.js");
 const { DbConnection } = require('./Dbconfig.js');
@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 app.use(cors({
-  origin: 'http://adyaai-resume-analyzer-front.vercel.app',
+  origin: process.env.FRONTEND_URL || 'https://adyaai-resume-analyzer-front.vercel.app',
   methods: ['GET', 'POST', 'DELETE', 'PATCH'],
   credentials: true,
   allowedHeaders: 'Content-Type,Authorization'
@@ -27,7 +27,7 @@ app.use("/api/History", HistoryRoutes);
 
 app.get("/api/health", (req, res) => res.send("OK"));
 
-DbConnection();
+DbConnection;
 
 module.exports = app;
 module.exports.handler = serverless(app);
