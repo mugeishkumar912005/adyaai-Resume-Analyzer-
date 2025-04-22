@@ -9,13 +9,15 @@ import SignUp from './Components/Signup';
 import Home from './Components/Home';
 import Profile from './Components/Profile';
 import UploadSection from './Components/UploadSection';
-import ForgetPassword from './Components/ForgetPasswor';
+import ForgetPassword from './Components/ForgetPassword.jsx';
 import AnalysisResult from './Components/AnalysisResult';
+import Nav from './Components/Nav';
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path='/Nav' element={<Nav/>}/>
         <Route path='/Login' element={<Login />} />
         <Route path='/SignUp' element={<SignUp />} />
         <Route path='/Home' element={<Home />} />
