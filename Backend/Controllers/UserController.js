@@ -64,6 +64,7 @@ const AddUser = async (req, res) => {
 
     sendWelcomeEmail(Email,username);
 
+    console.log(New_user)
     res.status(201).json({
       Msg: "Successfully Stored",
       Data: New_user,
