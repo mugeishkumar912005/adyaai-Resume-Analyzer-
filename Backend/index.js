@@ -29,5 +29,7 @@ app.get("/api/health", (req, res) => res.send("OK"));
 
 DbConnection;
 
-module.exports = app;
-module.exports.handler = serverless(app);
+const PORT = process.env.PORT || 6200;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`  );
+});
