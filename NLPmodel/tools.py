@@ -1,12 +1,14 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import os
 import re
 from PyPDF2 import PdfReader
+import docx
 import math
 import matplotlib.pyplot as plt
 import io
 import base64
+import tempfile
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -40,14 +42,22 @@ DEGREE_MAP = {
     'masters': ['masters']
 }
 
-def extract_text_from_pdf(file_path):
-    reader = PdfReader(file_path)
-    text = ''
-    for page in reader.pages:
-        page_text = page.extract_text()
-        if page_text:
-            text += page_text
-    return text
+def extract_text_from_file(file):
+    if file.filename.lower().endswith('.pdf'):
+        reader = PdfReader(file)
+        text = ''
+        for page in reader.pages:
+            page_text = page.extract_text()
+            if page_text:
+                text += page_text
+        return text
+    elif file.filename.lower().endswith(('.doc', '.docx')):
+        doc = docx.Document(file)
+        return '\n'.join([para.text for para in doc.paragraphs])
+    elif file.filename.lower().endswith('.txt'):
+        return file.read().decode('utf-8')
+    else:
+        raise ValueError("Unsupported file format")
 
 def extract_name(text):
     lines = text.strip().split('\n')
@@ -68,7 +78,6 @@ def extract_name(text):
             return line_clean.strip()
 
     return "Name not found"
-
 
 def clean_text(text):
     text = re.sub(r'[^a-zA-Z0-9\s]', '', text).lower()
@@ -197,21 +206,23 @@ def generate_match_score_chart(match_scores):
     img_base64 = base64.b64encode(buf.read()).decode('utf-8')
     return f"data:image/png;base64,{img_base64}"
 
-@app.route('/', methods=['POST'])
+@app.route('/analyze', methods=['POST'])
 def analyze():
-    resume_path = request.form.get('resumePath')
-    jd_path = request.form.get('jdPath')
+    if 'resumeFile' not in request.files or 'jdFile' not in request.files:
+        return jsonify({"error": "Missing resume or JD file"}), 400
 
-    if not resume_path or not jd_path:
-        return jsonify({"error": "Missing resumePath or jdPath in form data"}), 400
+    resume_file = request.files['resumeFile']
+    jd_file = request.files['jdFile']
+
+    if not resume_file or not jd_file:
+        return jsonify({"error": "Empty file upload"}), 400
 
     try:
-        resume_path = os.path.normpath(resume_path)
-        jd_path = os.path.normpath(jd_path)
+        # Extract text from files
+        resume_text = extract_text_from_file(resume_file)
+        jd_text = extract_text_from_file(jd_file)
 
-        resume_text = extract_text_from_pdf(resume_path)
-        jd_text = extract_text_from_pdf(jd_path)
-
+        # Analyze the content
         result = analyze_resume_vs_jd(resume_text, jd_text)
         suggestions = generate_suggestions(
             result['resume_skills'],

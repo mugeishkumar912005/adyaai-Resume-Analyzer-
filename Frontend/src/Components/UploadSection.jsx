@@ -26,7 +26,7 @@ const UploadSection = () => {
   const HandleHistory = async (result) => {
     try {
       await axios.post(
-        "https://adyaai-resume-analyzer-backend.onrender.com/api/History/Data/",
+        "https://adyaai-resume-analyzer-frontend-app.onrender.com/api/History/Data",
         {
           Resume_Degree: result.resume_education_keywords.degree,
           JD_Degree: result.jd_education_keywords.degree,
@@ -50,71 +50,48 @@ const UploadSection = () => {
     }
   };
 
-  const triggerAnalysis = async (RPath, JPath) => {
-    if (!RPath || !JPath) {
-      toast.warn("Please upload both Resume and JD!");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("resumePath", RPath);
-    formData.append("jdPath", JPath);
-
-    try {
-      const res = await fetch("https://adyaai-resume-analyzer-nlpmodel-back.onrender.com/", {
-        method: "POST",
-        body: formData,
-      });
-      const result = await res.json();
-      if (res.ok) {
-        await HandleHistory(result);
-        toast.success("Analysis complete!");
-        navigate("/Analysis", { state: { result } });
-      } else {
-        toast.error("Analysis failed: " + result.message);
-      }
-    } catch (error) {
-      toast.error("Something went wrong during analysis!");
-    }
-  };
-
-  const handleUpload = async () => {
+  const handleAnalysis = async () => {
     if (!resumeFile || !jdFile) {
       toast.warn("Please upload both Resume and JD!");
       return;
     }
-
+  
+    setLoading(true);
+  
     const formData = new FormData();
     formData.append("resumeFile", resumeFile);
     formData.append("jdFile", jdFile);
-    formData.append("email", "testuser@example.com");
-
-    setLoading(true);
-
+  
     try {
-      const response = await fetch("https://adyaai-resume-analyzer-backend.onrender.com/api/uploads/upload/", {
+      // POST to analysis API
+      const response = await fetch("https://adyaai-resume-analyzer-nlpmodel-back.onrender.com/analyze", {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,//dasda
-        },
         body: formData,
       });
-
+  
       const result = await response.json();
+  
+      // POST the same files to localhost:6200
+      await fetch("https://adyaai-resume-analyzer-frontend-app.onrender.com/api/uploads/upload", {
+        method: "POST",
+        body: formData,
+      });
+  
       setLoading(false);
-
+  
       if (response.ok) {
-        toast.success("Files uploaded successfully!");
-        triggerAnalysis(result.data.resumePath, result.data.jdPath);
+        await HandleHistory(result);
+        toast.success("Analysis complete!");
+        navigate("/Analysis", { state: { result } });
       } else {
-        toast.error("Upload failed: " + result.message);
+        toast.error("Analysis failed: " + (result.message || "Unknown error"));
       }
     } catch (error) {
       setLoading(false);
-      toast.error("Something went wrong!");
+      toast.error("Something went wrong during analysis!");
     }
   };
-
+  
   const DropBox = ({ label, file, onDrop, onChange, accept, inputId }) => (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -169,14 +146,14 @@ const UploadSection = () => {
 
       <div className="flex justify-center">
         <button
-          onClick={handleUpload}
+          onClick={handleAnalysis}
           className="bg-blue-600 mt-25 text-white px-6 py-3 rounded-xl shadow-lg hover:bg-blue-700 transition disabled:opacity-60"
           disabled={loading}
         >
           {loading ? (
             <div className="h-5 w-5 border-4 border-white border-t-transparent animate-spin rounded-full"></div>
           ) : (
-            "Upload Files & Analyze"
+            "Analyze Files"
           )}
         </button>
       </div>
