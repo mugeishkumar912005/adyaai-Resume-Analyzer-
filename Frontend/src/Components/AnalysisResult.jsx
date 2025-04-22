@@ -5,13 +5,14 @@ import {
 } from 'recharts';
 import { motion } from 'framer-motion';
 import Resume from "../assets/Resume.jpg";
+import { FaFileDownload } from 'react-icons/fa'; // Import the file download icon
 
 const COLORS = ['#4f46e5', '#22c55e', '#facc15'];
 
 const AnalysisResult = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { result } = location.state || {};
+  const { result, resumeFile, jdFile } = location.state || {};
 
   if (!result) {
     return <div className="text-center text-lg text-gray-500 mt-10">Loading...</div>;
@@ -37,6 +38,18 @@ const AnalysisResult = () => {
     { name: 'JD Skills Match', value: 100 - match_scores.skills },
   ];
 
+  const cardVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
     <div className="px-4 sm:px-6 py-10 min-h-screen bg-gradient-to-br from-[#e0f2fe] via-white to-[#fefce8] overflow-x-hidden">
       <div className="max-w-7xl mx-auto">
@@ -50,24 +63,51 @@ const AnalysisResult = () => {
           </button>
         </div>
 
+        {/* Download Links */}
+        <div className="flex justify-start items-center mb-6 gap-4">
+          {resumeFile && (
+            <a
+              href={URL.createObjectURL(resumeFile)}
+              download={resumeFile.name}
+              className="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium"
+            >
+              <FaFileDownload className="mr-2" />
+              Download Resume
+            </a>
+          )}
+          {jdFile && (
+            <a
+              href={URL.createObjectURL(jdFile)}
+              download={jdFile.name}
+              className="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium"
+            >
+              <FaFileDownload className="mr-2" />
+              Download Job Description
+            </a>
+          )}
+        </div>
+
         <div className="bg-white/70 backdrop-blur-md rounded-3xl shadow-2xl p-6 sm:p-8">
           <h2 className="text-3xl font-semibold text-center text-indigo-800 mb-10">Analysis Result</h2>
 
-          {/* Score Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             {[{ label: 'Skill Match Score', value: match_scores.skills },
               { label: 'Education Match Score', value: match_scores.education },
               { label: 'Overall Match Score', value: match_scores.overall },
             ].map((score, index) => (
-              <div
+              <motion.div
                 key={index}
                 className="relative group bg-gradient-to-br from-indigo-200 via-indigo-100 to-yellow-100 rounded-2xl shadow-xl p-6 text-center overflow-hidden transition-transform transform hover:scale-105 hover:shadow-2xl"
+                variants={cardVariants}
+                initial="hidden"
+                animate="visible"
+                transition={{ delay: index * 0.2 }}
               >
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-tr from-indigo-400/30 to-yellow-200/20 pointer-events-none" />
                 <h3 className="text-xl font-semibold text-indigo-700 drop-shadow">{score.label}</h3>
-                <p className="text-5xl font-extrabold text-indigo-900 mt-4 mb-2 drop-shadow-lg">{score.value}%</p>
+                <p className="text-4xl font-bold text-indigo-900 mt-4 mb-2 drop-shadow-lg">{score.value}%</p>
                 <div className="w-16 h-1 mx-auto rounded bg-gradient-to-r from-indigo-400 to-yellow-300 mb-2" />
-              </div>
+              </motion.div>
             ))}
           </div>
 
@@ -124,7 +164,6 @@ const AnalysisResult = () => {
             </motion.div>
           </div>
 
-          {/* Education Details */}
           <h3 className="text-2xl font-semibold text-indigo-700 mb-6 mt-12">Education Details</h3>
           <div className="flex flex-col lg:flex-row justify-between items-start gap-8 mb-12">
             <motion.div
@@ -142,7 +181,7 @@ const AnalysisResult = () => {
               />
             </motion.div>
             <div
-              className="bg-indigo-50/70 hover:bg-indigo-100/80 transition duration-300 rounded-xl shadow-md w-full lg:w-1/2 h-[350px] flex flex-col justify-center border border-indigo-200 p-10 space-y-6"
+              className="bg-indigo-50/70 hover:bg-indigo-100/80 transition duration-300 rounded-xl shadow-md w-full lg:w-1/2 h-[350px] flex flex-col justify-center border border-indigo-200 p-6 space-y-4"
               style={{ minHeight: 350, maxHeight: 350 }}
             >
               <div className="flex flex-col gap-1">
@@ -164,7 +203,6 @@ const AnalysisResult = () => {
             </div>
           </div>
 
-          {/* Skills Comparison */}
           <div className="mb-12">
             <h3 className="text-2xl font-semibold text-indigo-700 mb-4">Skills Comparison</h3>
             <div className="bg-white rounded-xl shadow-inner p-6 text-gray-800">
@@ -197,7 +235,6 @@ const AnalysisResult = () => {
             </div>
           </div>
 
-          {/* Suggestions */}
           <div>
             <h3 className="text-2xl font-semibold text-indigo-700 mb-4">Suggestions</h3>
             <ul className="list-disc pl-6 space-y-2 text-gray-700 text-base">
