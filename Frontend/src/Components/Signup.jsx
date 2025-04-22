@@ -19,7 +19,7 @@ const SignUp = () => {
     }
 
     try {
-      axios.post('https://adyaai-resume-analyzer-backend.onrender.com/api/user/AddUser', {
+      axios.post('https://adyaai-resume-analyzer-backend.onrender.com/api/user/AddUser/', {
         username: name,
         Email: Email,
         Password: Pass,
