@@ -5,10 +5,12 @@ import section2 from "../assets/section2.jpg";
 import UploadSection from "./UploadSection";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+
 const Home = () => {
   const Token = localStorage.getItem("authToken");
   const navigate = useNavigate();
   const uploadSectionRef = useRef(null);
+
   const GotoUpload = () => {
     uploadSectionRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -18,7 +20,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gray-50 overflow-x-hidden">
       <Nav />
       <section className="flex flex-col-reverse lg:flex-row items-center justify-between px-8 lg:px-20 py-20 gap-10 bg-blue-500">
         <div className="w-full lg:w-1/2">
@@ -63,7 +65,7 @@ const Home = () => {
           <img
             src={section2}
             alt="Resume Analyzer"
-            className="w-170 h-80 rounded-2xl shadow-md"
+            className="w-full h-80 rounded-2xl shadow-md object-cover"
           />
         </motion.div>
 
@@ -83,41 +85,35 @@ const Home = () => {
           </ul>
         </motion.div>
       </section>
-      <section className="flex flex-col items-center justify-between px-8 lg:px-20 py-20 gap-10 bg-white">
-      <h1 className="text-2xl font-bold">Get Into</h1>
-      <div className="overflow-hidden w-250 py-6 bg-white-50">
-                <div className="whitespace-nowrap animate-scroll flex gap-20 ">
-                    {[
-                    { name: "Amazon", logo: "https://logo.clearbit.com/amazon.com" },
-                    { name: "Google", logo: "https://logo.clearbit.com/google.com" },
-                    { name: "Microsoft", logo: "https://logo.clearbit.com/microsoft.com" },
-                    { name: "Meta", logo: "https://logo.clearbit.com/meta.com" },
-                    { name: "Tesla", logo: "https://logo.clearbit.com/tesla.com" },
-                    { name: "Zoho", logo: "https://logo.clearbit.com/zoho.com" },
-                    { name: "Adya", logo: "https://logo.clearbit.com/adya.io" },
-                    { name: "TCS", logo: "https://logo.clearbit.com/tcs.com" },
 
-                    { name: "Amazon", logo: "https://logo.clearbit.com/amazon.com" },
-                    { name: "Google", logo: "https://logo.clearbit.com/google.com" },
-                    { name: "Microsoft", logo: "https://logo.clearbit.com/microsoft.com" },
-                    { name: "Meta", logo: "https://logo.clearbit.com/meta.com" },
-                    { name: "Tesla", logo: "https://logo.clearbit.com/tesla.com" },
-                    { name: "Zoho", logo: "https://logo.clearbit.com/zoho.com" },
-                    { name: "Adya", logo: "https://logo.clearbit.com/adya.io" },
-                    { name: "TCS", logo: "https://logo.clearbit.com/tcs.com" },
-                    ].map((company, index) => (
-                    <div
-                        key={index}
-                        className="flex items-center gap-3 bg-white px-8 py-4 rounded-xl shadow-sm pr-15"
-                    >
-                        <img src={company.logo} alt={company.name} className="h-6 w-auto object-contain" />
-                        <span className="text-sm font-medium text-gray-800">{company.name}</span>
-                    </div>
-                    ))}
+      <section className="flex flex-col items-center justify-between px-8 lg:px-20 py-20 gap-10 bg-white">
+        <h1 className="text-2xl font-bold">Get Into</h1>
+        <div className="overflow-hidden w-full py-6">
+          <div className="whitespace-nowrap animate-scroll flex gap-20">
+            {[
+              { name: "Amazon", logo: "https://logo.clearbit.com/amazon.com" },
+              { name: "Google", logo: "https://logo.clearbit.com/google.com" },
+              { name: "Microsoft", logo: "https://logo.clearbit.com/microsoft.com" },
+              { name: "Meta", logo: "https://logo.clearbit.com/meta.com" },
+              { name: "Tesla", logo: "https://logo.clearbit.com/tesla.com" },
+              { name: "Zoho", logo: "https://logo.clearbit.com/zoho.com" },
+              { name: "Adya", logo: "https://logo.clearbit.com/adya.io" },
+              { name: "TCS", logo: "https://logo.clearbit.com/tcs.com" },
+            ].flatMap(company => [company, company]) // Repeat for smooth scroll loop
+              .map((company, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-3 bg-white px-8 py-4 rounded-xl shadow-sm"
+                >
+                  <img src={company.logo} alt={company.name} className="h-6 w-auto object-contain" />
+                  <span className="text-sm font-medium text-gray-800">{company.name}</span>
                 </div>
-                </div>
+              ))}
+          </div>
+        </div>
       </section>
-      <section ref={uploadSectionRef} className="">
+
+      <section ref={uploadSectionRef}>
         <UploadSection />
       </section>
 
