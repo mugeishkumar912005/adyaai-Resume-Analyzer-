@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import Nav from "./Nav";
-import Hero from "../assets/Hero.jpg";
+import Hero from "../assets/hero.jpg";
 import section2 from "../assets/section2.jpg";
 import UploadSection from "./UploadSection";
 import { motion } from "framer-motion";
