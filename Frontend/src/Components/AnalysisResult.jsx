@@ -124,21 +124,34 @@ const AnalysisResult = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
             />
-            <div className="bg-white rounded-xl shadow-inner p-6 text-gray-800 w-full lg:w-1/2 space-y-4">
-              <div className="text-lg sm:text-xl">
-                <strong className="text-indigo-700">Your Degree:</strong> <span className="ml-2">{resume_education_keywords?.degree || 'N/A'}</span>
+            <div className="bg-white rounded-xl shadow-inner p-6 w-full lg:w-1/2 space-y-6 border border-indigo-100">
+              <div className="flex flex-col gap-2">
+                <span className="text-gray-600 text-sm font-medium uppercase tracking-wide">Your Degree</span>
+                <span className="text-lg sm:text-xl font-semibold text-indigo-800">
+                  {resume_education_keywords?.degree || 'N/A'}
+                </span>
               </div>
-              <div className="text-lg sm:text-xl">
-                <strong className="text-indigo-700">Required Degree:</strong> <span className="ml-2">{jd_education_keywords?.degree || 'N/A'}</span>
+              <div className="flex flex-col gap-2">
+                <span className="text-gray-600 text-sm font-medium uppercase tracking-wide">Required Degree</span>
+                <span className="text-lg sm:text-xl font-semibold text-yellow-700">
+                  {jd_education_keywords?.degree || 'N/A'}
+                </span>
               </div>
-              <div className="text-lg sm:text-xl">
-                <strong className="text-indigo-700">Your CGPA:</strong> <span className="ml-2">{resume_education_keywords?.cgpa || 'N/A'}</span>
+              <div className="flex flex-col gap-2">
+                <span className="text-gray-600 text-sm font-medium uppercase tracking-wide">Your CGPA</span>
+                <span className="text-lg sm:text-xl font-semibold text-indigo-800">
+                  {resume_education_keywords?.cgpa || 'N/A'}
+                </span>
               </div>
-              <div className="text-lg sm:text-xl">
-                <strong className="text-indigo-700">Required CGPA:</strong> <span className="ml-2">{jd_education_keywords?.cgpa || 'N/A'}</span>
+              <div className="flex flex-col gap-2">
+                <span className="text-gray-600 text-sm font-medium uppercase tracking-wide">Required CGPA</span>
+                <span className="text-lg sm:text-xl font-semibold text-yellow-700">
+                  {jd_education_keywords?.cgpa || 'N/A'}
+                </span>
               </div>
             </div>
           </div>
+
 
           <div className="mb-12">
             <h3 className="text-2xl font-semibold text-indigo-700 mb-4">Skills Comparison</h3>
