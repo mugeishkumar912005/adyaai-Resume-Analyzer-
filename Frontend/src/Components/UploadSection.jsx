@@ -61,7 +61,7 @@ const UploadSection = () => {
     formData.append("jdPath", JPath);
 
     try {
-      const res = await fetch("http://localhost:5000", {
+      const res = await fetch("https://adyaai-resume-analyzer-nlpmodel-back.onrender.com/", {
         method: "POST",
         body: formData,
       });
