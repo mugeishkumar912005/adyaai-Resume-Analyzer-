@@ -119,7 +119,7 @@ const AnalysisResult = () => {
             <motion.img
               src={Resume}
               alt="Resume"
-              className="rounded-2xl shadow-md w-full lg:w-1/2 object-contain"
+              className="rounded-2xl shadow-md w-full h-20 lg:w-1/2 object-contain"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
