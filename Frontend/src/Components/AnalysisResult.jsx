@@ -5,7 +5,7 @@ import {
 } from 'recharts';
 import { motion } from 'framer-motion';
 import Resume from "../assets/Resume.jpg";
-import { FaFileDownload } from 'react-icons/fa'; // Import the file download icon
+import { FaFileDownload } from 'react-icons/fa'; 
 
 const COLORS = ['#4f46e5', '#22c55e', '#facc15'];
 
