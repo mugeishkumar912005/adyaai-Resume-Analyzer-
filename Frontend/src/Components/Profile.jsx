@@ -6,7 +6,7 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import 'react-circular-progressbar/dist/styles.css';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
-import prof from "../assets/prof.jpeg"
+import prof from "../assets/prof.jpeg";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -122,6 +122,7 @@ const Profile = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
       >
+        {/* Profile Card */}
         <motion.div
           className="bg-white shadow-2xl rounded-3xl p-5"
           initial={{ x: -50, opacity: 0 }}
@@ -130,8 +131,8 @@ const Profile = () => {
         >
           <h2 className="text-2xl font-bold mb-6 text-blue-800 text-center">User Profile</h2>
 
-          <div>
-            <img src={prof} alt="Profile" className="w-32 h-32 object-cover rounded-full mx-auto shadow-md" />
+          <div className="flex justify-center mb-4">
+            <img src={prof} alt="Profile" className="w-32 h-32 object-cover rounded-full shadow-md" />
           </div>
 
           <div className="space-y-6">
@@ -179,7 +180,6 @@ const Profile = () => {
                 <Pencil size={18} /> Edit Profile
               </button>
             )}
-
             <button
               className="w-full bg-blue-100 text-blue-700 py-2 rounded-lg border border-blue-300 hover:bg-blue-200 flex items-center justify-center gap-2"
               onClick={() => {
@@ -192,6 +192,7 @@ const Profile = () => {
           </div>
         </motion.div>
 
+        {/* Upload History Card */}
         <motion.div
           className="bg-white shadow-2xl rounded-3xl p-8 max-h-[80vh] overflow-y-auto"
           initial={{ x: 50, opacity: 0 }}
@@ -205,80 +206,44 @@ const Profile = () => {
               uploadHistory.map((item, index) => (
                 <motion.div
                   key={index}
-                  className="bg-blue-50 rounded-xl shadow-lg space-y-4 hover:shadow-xl transition-all p-10 flex gap-2 flex-col"
+                  className="bg-blue-50 rounded-xl shadow-lg space-y-4 hover:shadow-xl transition-all p-6 flex flex-col"
                   whileHover={{ scale: 1.02 }}
                 >
-                  <h2 className="text-black flex justify-center text-2xl">File_Uploded:</h2>
-                  <div className="flex flex-wrap gap-4 text-sm font-medium text-white">
-                    <span className="bg-green-500 px-3 py-1 rounded-full">
-                      Resume Degree: {item.Resume_Degree}
-                    </span>
-                    <span className="bg-yellow-500 px-3 py-1 rounded-full">
-                      JD Degree: {item.JD_Degree}
-                    </span>
-                    <span className="bg-indigo-500 px-3 py-1 rounded-full">
-                      Resume CGPA: {item.Resume_CGPA}
-                    </span>
-                    <span className="bg-pink-500 px-3 py-1 rounded-full">
-                      JD CGPA: {item.JD_CGPA}
-                    </span>
+                  <h2 className="text-center text-lg font-semibold text-black">File Uploaded</h2>
+                  <div className="flex flex-wrap gap-4 text-sm font-medium text-white justify-center">
+                    <span className="bg-green-500 px-3 py-1 rounded-full">Resume Degree: {item.Resume_Degree}</span>
+                    <span className="bg-yellow-500 px-3 py-1 rounded-full">JD Degree: {item.JD_Degree}</span>
+                    <span className="bg-indigo-500 px-3 py-1 rounded-full">Resume CGPA: {item.Resume_CGPA}</span>
+                    <span className="bg-pink-500 px-3 py-1 rounded-full">JD CGPA: {item.JD_CGPA}</span>
                   </div>
+
                   <div className="flex justify-around items-center text-center">
-                    <div className="flex flex-col items-center">
-                      <div style={{ width: 80, height: 80 }}>
-                        <CircularProgressbar
-                          value={(item.Score?.Edu || 0)}
-                          maxValue={100}
-                          text={`${(item.Score?.Edu || 0)}%`}
-                          styles={buildStyles({
-                            pathColor: '#10B981',
-                            textColor: '#1E3A8A',
-                            trailColor: '#E5E7EB',
-                            textSize: '14px',
-                          })}
-                        />
+                    {["Edu", "Overall", "skills"].map((key, i) => (
+                      <div key={i} className="flex flex-col items-center">
+                        <div style={{ width: 80, height: 80 }}>
+                          <CircularProgressbar
+                            value={item.Score?.[key] || 0}
+                            maxValue={100}
+                            text={`${item.Score?.[key] || 0}%`}
+                            styles={buildStyles({
+                              pathColor: key === "Edu" ? '#10B981' : key === "Overall" ? '#6366F1' : '#F59E0B',
+                              textColor: '#1E3A8A',
+                              trailColor: '#E5E7EB',
+                              textSize: '14px',
+                            })}
+                          />
+                        </div>
+                        <p className="mt-2 text-sm text-blue-600 capitalize">{key}</p>
                       </div>
-                      <p className="mt-2 text-sm text-blue-600">Education</p>
-                    </div>
-                    <div className="flex flex-col items-center">
-                      <div style={{ width: 80, height: 80 }}>
-                        <CircularProgressbar
-                          value={(item.Score?.Overall || 0)}
-                          maxValue={100}
-                          text={`${(item.Score?.Overall || 0)}%`}
-                          styles={buildStyles({
-                            pathColor: '#6366F1',
-                            textColor: '#1E3A8A',
-                            trailColor: '#E5E7EB',
-                            textSize: '14px',
-                          })}
-                        />
-                      </div>
-                      <p className="mt-2 text-sm text-blue-600">Overall</p>
-                    </div>
-                    <div className="flex flex-col items-center">
-                      <div style={{ width: 80, height: 80 }}>
-                        <CircularProgressbar
-                          value={(item.Score?.skills || 0)}
-                          maxValue={100}
-                          text={`${(item.Score?.skills || 0)}%`}
-                          styles={buildStyles({
-                            pathColor: '#F59E0B',
-                            textColor: '#1E3A8A',
-                            trailColor: '#E5E7EB',
-                            textSize: '14px',
-                          })}
-                        />
-                      </div>
-                      <p className="mt-2 text-sm text-blue-600">Skills</p>
-                    </div>
+                    ))}
                   </div>
+
                   {item.Suggestions?.length > 0 && (
-                    <div className="bg-white rounded-4xl p-5">
-                      <p className="font-semibold text-blue-900">Suggestions:</p>
-                      <ul className="list-disc list-inside text-sm text-blue-800">
-                        {item.Suggestions.map((suggestion, idx) => (
-                          <li key={idx}>{suggestion}</li>
+                    <div className="bg-white border border-blue-200 rounded-xl p-4 mt-4">
+                      <p className="text-blue-700 font-medium mb-2">Suggestions:</p>
+                      <ul className="list-disc list-inside text-blue-900 text-sm space-y-1">
+                        {item.Suggestions.map((s, i) => (
+                          <li key={i}>{s}</li>
                         ))}
                       </ul>
                     </div>
@@ -286,7 +251,7 @@ const Profile = () => {
                 </motion.div>
               ))
             ) : (
-              <p>No uploads yet</p>
+              <p className="text-center text-blue-600">No uploads found.</p>
             )}
           </div>
         </motion.div>

@@ -38,9 +38,9 @@ const AnalysisResult = () => {
   ];
 
   return (
-    <div className="px-6 py-10 min-h-screen bg-gradient-to-br from-[#e0f2fe] via-white to-[#fefce8]">
+    <div className="px-4 sm:px-6 py-10 min-h-screen bg-gradient-to-br from-[#e0f2fe] via-white to-[#fefce8]">
       <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
           <h1 className="text-4xl font-bold text-indigo-700 drop-shadow-md">Smart Resume</h1>
           <button
             onClick={() => navigate(-1)}
@@ -50,7 +50,7 @@ const AnalysisResult = () => {
           </button>
         </div>
 
-        <div className="bg-white/70 backdrop-blur-md rounded-3xl shadow-2xl p-8">
+        <div className="bg-white/70 backdrop-blur-md rounded-3xl shadow-2xl p-6 sm:p-8">
           <h2 className="text-3xl font-semibold text-center text-indigo-800 mb-10">Analysis Result</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
@@ -114,20 +114,29 @@ const AnalysisResult = () => {
             </motion.div>
           </div>
 
-          <h3 className="text-2xl font-semibold text-indigo-700 mb-4 mt-10">Education Details</h3>
-          <div className="mb-12 flex flex-col lg:flex-row justify-evenly gap-6">
+          <h3 className="text-2xl font-semibold text-indigo-700 mb-6 mt-12">Education Details</h3>
+          <div className="flex flex-col lg:flex-row justify-between items-start gap-8 mb-12">
             <motion.img
               src={Resume}
-              className='w-100'
+              alt="Resume"
+              className="rounded-2xl shadow-md w-full lg:w-1/2 object-contain"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
             />
-            <div className="flex justify-centre pt-20 gap-10 flex-col bg-white rounded-xl shadow-inner p-6 space-y-3 text-gray-800 w-full lg:w-1/2">
-              <h3 className='text-2xl'><strong>Your Degree:</strong> {resume_education_keywords?.degree || 'N/A'}</h3>
-              <h3 className='text-2xl'><strong>Required Degree:</strong> {jd_education_keywords?.degree || 'N/A'}</h3>
-              <h3 className='text-2xl'><strong>Your CGPA:</strong> {resume_education_keywords?.cgpa || 'N/A'}</h3>
-              <h3 className='text-2xl'><strong>Required CGPA:</strong> {jd_education_keywords?.cgpa || 'N/A'}</h3>
+            <div className="bg-white rounded-xl shadow-inner p-6 text-gray-800 w-full lg:w-1/2 space-y-4">
+              <div className="text-lg sm:text-xl">
+                <strong className="text-indigo-700">Your Degree:</strong> <span className="ml-2">{resume_education_keywords?.degree || 'N/A'}</span>
+              </div>
+              <div className="text-lg sm:text-xl">
+                <strong className="text-indigo-700">Required Degree:</strong> <span className="ml-2">{jd_education_keywords?.degree || 'N/A'}</span>
+              </div>
+              <div className="text-lg sm:text-xl">
+                <strong className="text-indigo-700">Your CGPA:</strong> <span className="ml-2">{resume_education_keywords?.cgpa || 'N/A'}</span>
+              </div>
+              <div className="text-lg sm:text-xl">
+                <strong className="text-indigo-700">Required CGPA:</strong> <span className="ml-2">{jd_education_keywords?.cgpa || 'N/A'}</span>
+              </div>
             </div>
           </div>
 
