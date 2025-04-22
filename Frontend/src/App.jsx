@@ -9,7 +9,7 @@ import SignUp from './Components/Signup';
 import Home from './Components/Home';
 import Profile from './Components/Profile';
 import UploadSection from './Components/UploadSection';
-import ForgetPassword from './Components/ForgetPassword.jsx';
+import ForgetPassword from './Components/ForgetPasswor.jsx';
 import AnalysisResult from './Components/AnalysisResult';
 import Nav from './Components/Nav';
 
