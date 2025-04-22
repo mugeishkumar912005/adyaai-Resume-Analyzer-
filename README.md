@@ -252,7 +252,7 @@ node index.js
 
 **Mugeish Kumar S**
 
-[GitHub](https://github.com/mugeishkumar912005) • [LinkedIn]([https://linkedin.com/in/vrdev/](https://www.linkedin.com/in/mugeish-kumar-3a9258251/)) • [Website]([https://linktr.ee/mvram](https://adyaai-resume-analyzer-frontend-app.onrender.com))
+[GitHub](https://github.com/mugeishkumar912005) • [LinkedIn]([https://linkedin.com/in/vrdev/](https://www.linkedin.com/in/mugeish-kumar-3a9258251/]) • [Website]([https://linktr.ee/mvram](https://adyaai-resume-analyzer-frontend-app.onrender.com])
 
   
 
