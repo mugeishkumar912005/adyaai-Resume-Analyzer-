@@ -20,7 +20,7 @@ const Login = () => {
         }
 
         try {
-            const Mail_Gen = await axios.post("https://adyaai-resume-analyzer-frontend-app.onrender.com/api/user/Trigger/", {
+            const Mail_Gen = await axios.post("https://adyaai-resume-analyzer-backend.onrender.com/api/user/Trigger/", {
                 Email: email
             });
             if (Mail_Gen.status === 200) {
@@ -38,7 +38,7 @@ const Login = () => {
         setError('');
 
         try {
-            const response = await axios.post('https://adyaai-resume-analyzer-frontend-app.onrender.com/api/user/Login/', {
+            const response = await axios.post('https://adyaai-resume-analyzer-backend.onrender.com/api/user/Login/', {
                 Email: email,
                 Password: password
             });

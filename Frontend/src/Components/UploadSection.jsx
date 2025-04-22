@@ -26,7 +26,7 @@ const UploadSection = () => {
   const HandleHistory = async (result) => {
     try {
       await axios.post(
-        "https://adyaai-resume-analyzer-frontend-app.onrender.com/api/History/Data",
+        "https://adyaai-resume-analyzer-backend.onrender.com/api/History/Data",
         {
           Resume_Degree: result.resume_education_keywords.degree,
           JD_Degree: result.jd_education_keywords.degree,
@@ -72,7 +72,7 @@ const UploadSection = () => {
       const result = await response.json();
   
       // POST the same files to localhost:6200
-      await fetch("https://adyaai-resume-analyzer-frontend-app.onrender.com/api/uploads/upload", {
+      await fetch("https://adyaai-resume-analyzer-backend.onrender.com/api/uploads/upload", {
         method: "POST",
         body: formData,
       });

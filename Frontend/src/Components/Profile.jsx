@@ -27,7 +27,7 @@ const Profile = () => {
 
     const fetchUserData = async () => {
       try {
-        const response = await fetch("https://adyaai-resume-analyzer-backend.onrender.com/api/user/GetData/", {
+        const response = await fetch("https://adyaai-resume-analyzer-backend.onrender.com/api/user/GetData", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
