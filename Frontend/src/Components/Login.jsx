@@ -38,7 +38,7 @@ const Login = () => {
         setError('');
 
         try {
-            const response = await axios.post('http://localhost:6200/api/user/Login/', {
+            const response = await axios.post('https://adyaai-resume-analyzer-frontend-app.onrender.com/api/user/Login/', {
                 Email: email,
                 Password: password
             });
