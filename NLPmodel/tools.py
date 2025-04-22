@@ -15,7 +15,7 @@ CORS(app)
 
 SKILLS = {
     "languages": [
-        "python", "java", "c++", "c", "c#", "javascript", "typescript", "go", "ruby", "swift", "kotlin", "php", "rust", "r", "matlab", "scala", "sql", "bash", "perl"
+        "python", "java", "c++", "c", "c#", "javascript", "typescript", "Go", "ruby", "swift", "kotlin", "php", "rust", "R", "matlab", "scala", "sql", "bash", "perl"
     ],
     "frameworks_libraries": [
         "react", "angular", "vue", "node", "django", "flask", "spring", "laravel", "express", "next.js", "nuxt.js", "fastapi", "pandas", "numpy", "scikit-learn", "tensorflow", "keras", "pytorch", "tailwind", "bootstrap", "material-ui", "redux", "socket.io", "jquery", "rxjs", "nestjs"

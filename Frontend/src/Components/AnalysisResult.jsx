@@ -124,34 +124,25 @@ const AnalysisResult = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
             />
-            <div className="bg-white rounded-xl shadow-inner p-6 w-full lg:w-1/2 space-y-6 border border-indigo-100">
-              <div className="flex flex-col gap-2">
-                <span className="text-gray-600 text-sm font-medium uppercase tracking-wide">Your Degree</span>
-                <span className="text-lg sm:text-xl font-semibold text-indigo-800">
-                  {resume_education_keywords?.degree || 'N/A'}
-                </span>
+            <div className="bg-indigo-50/70 hover:bg-indigo-100/80 transition duration-300 rounded-xl shadow-md p-6 w-full lg:w-1/2 space-y-6 border border-indigo-200">
+              <div className="flex flex-col gap-1">
+                <span className="text-gray-600 text-sm font-semibold uppercase tracking-wider">Your Degree</span>
+                <span className="text-lg font-bold text-indigo-900">{resume_education_keywords?.degree || 'N/A'}</span>
               </div>
-              <div className="flex flex-col gap-2">
-                <span className="text-gray-600 text-sm font-medium uppercase tracking-wide">Required Degree</span>
-                <span className="text-lg sm:text-xl font-semibold text-yellow-700">
-                  {jd_education_keywords?.degree || 'N/A'}
-                </span>
+              <div className="flex flex-col gap-1">
+                <span className="text-gray-600 text-sm font-semibold uppercase tracking-wider">Required Degree</span>
+                <span className="text-lg font-bold text-yellow-800">{jd_education_keywords?.degree || 'N/A'}</span>
               </div>
-              <div className="flex flex-col gap-2">
-                <span className="text-gray-600 text-sm font-medium uppercase tracking-wide">Your CGPA</span>
-                <span className="text-lg sm:text-xl font-semibold text-indigo-800">
-                  {resume_education_keywords?.cgpa || 'N/A'}
-                </span>
+              <div className="flex flex-col gap-1">
+                <span className="text-gray-600 text-sm font-semibold uppercase tracking-wider">Your CGPA</span>
+                <span className="text-lg font-bold text-indigo-900">{resume_education_keywords?.cgpa || 'N/A'}</span>
               </div>
-              <div className="flex flex-col gap-2">
-                <span className="text-gray-600 text-sm font-medium uppercase tracking-wide">Required CGPA</span>
-                <span className="text-lg sm:text-xl font-semibold text-yellow-700">
-                  {jd_education_keywords?.cgpa || 'N/A'}
-                </span>
+              <div className="flex flex-col gap-1">
+                <span className="text-gray-600 text-sm font-semibold uppercase tracking-wider">Required CGPA</span>
+                <span className="text-lg font-bold text-yellow-800">{jd_education_keywords?.cgpa || 'N/A'}</span>
               </div>
             </div>
           </div>
-
 
           <div className="mb-12">
             <h3 className="text-2xl font-semibold text-indigo-700 mb-4">Skills Comparison</h3>
