@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: adyaai-Resume-Analyzer-frontend-app
+    env: node
+    buildCommand: |
+      cd Frontend && npm install && npm run build
+    startCommand: serve -s Frontend/build
+    staticPaths:
+      - path: "/*"
+        destination: "/index.html"
